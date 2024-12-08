@@ -1,0 +1,20 @@
+# Node.js
+node_modules/
+
+# .env file
+.env
+
+# logs
+logs
+*.log
+
+# OS files
+
+Thumbs.db
+
+# IDE configurations
+.vscode/
+
+
+# Test coverage
+coverage/

@@ -22,9 +22,7 @@ const fetchPlaces = async (req, res) => {
 
         // Appel à l'API Google
         const response = await axios.get(url);
-
         const places = response.data.results;
-
 
         // Envoi des résultats sous forme de réponse JSON
         res.json({ places });
@@ -33,7 +31,21 @@ const fetchPlaces = async (req, res) => {
         res.status(500).json({ message: 'Erreur lors de la récupération des lieux.' });
     }
 }
+// Retourne la clé API de l'API Google Maps
+const getApiKey = (req, res) => {
+    try {
+        const apiKey = process.env.API_KEY;
+        if (!apiKey) {
+            return res.status(500).json({ message: 'Clé API introuvable.' });
+        }
+        res.json({ apiKey: apiKey });
+    } catch (error) {
+        console.error('Erreur lors de l\'envoi de la clé API :', error);
+        res.status(500).json({ message: 'Erreur serveur.' });
+    }
+};
 
 
 
-module.exports = { fetchPlaces };
+
+module.exports = { fetchPlaces, getApiKey };

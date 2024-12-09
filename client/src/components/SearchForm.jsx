@@ -74,7 +74,7 @@ const SearchForm = ({ onResults, isSelected }) => {
               type="text"
               value={activity}
               onChange={(e) => setActivity(e.target.value)}
-              placeholder="Rechercher une activité (cinéma, musée, escalade...)"
+              placeholder="Rechercher un lieu ou une activité (cinéma, musée, escalade...)"
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
               required
             />

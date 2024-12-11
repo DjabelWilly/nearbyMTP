@@ -16,10 +16,9 @@ import axios from "axios";
  * Returns:
  * A form with inputs for activity and radius, and a submit button to trigger the search.
  */
-const SearchForm = ({ onResults, isSelected }) => {
-  const [activity, setActivity] = useState(""); //State de l'activité
+const SearchForm = ({ onResults }) => {
+  const [activity, setActivity] = useState(""); //Stocke l'activité recherchée
   const [radius, setRadius] = useState(5000); // variable de rayon, (par défaut : 5 km)
-  const [loading, setLoading] = useState(false);
 
   /**
    * Handles the form submission event.
@@ -36,7 +35,6 @@ const SearchForm = ({ onResults, isSelected }) => {
       alert("Veuillez entrer une activité et sélectionner un rayon !");
       return;
     }
-    setLoading(true);
 
     console.log("Envoi de requête avec:", { activity, radius });
 
@@ -54,8 +52,6 @@ const SearchForm = ({ onResults, isSelected }) => {
       alert(
         "Une erreur est survenue lors de la recherche. Veuillez réessayer."
       );
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -64,64 +60,56 @@ const SearchForm = ({ onResults, isSelected }) => {
       {/* Formulaire de recherche */}
 
       <form onSubmit={handleSubmit}>
-        <div className="bg-white mt-6 p-6 rounded-lg shadow-md w-3/4 md:w-1/2 mx-auto flex flex-col">
+        <div className="bg-white rounded-lg shadow-md md:w-4/5 flex flex-col md:flex-row justify-around md:items-center p-2 pb-5 mt-4 mb-8 mx-4 md:mx-auto space-y-4  ">
           {/* Input de recherche */}
-          <div className="mb-4">
-            <label className="block text-gray-700 font-semibold mb-2">
-              Activités :
-            </label>
+          <div className=" w-full md:w-1/3">
             <input
               type="text"
               value={activity}
               onChange={(e) => setActivity(e.target.value)}
-              placeholder="Rechercher un lieu ou une activité (cinéma, musée, escalade...)"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              placeholder="Rechercher un lieu ou une activité"
+              className="w-full mt-2 p-3 border border-gray-400 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
               required
             />
           </div>
 
           {/* Radios pour le périmètre */}
-          <div className="mb-6">
-            <label className="block text-gray-700 font-semibold mb-2">
+          <div className="w-full md:w-1/3 sm:my-0 sm:pb-2 ">
+            <label className="block text-gray-700 font-semibold mb-4">
               Périmètre :
             </label>
-            <div className="w-full p-1">
-              <div className="flex flex-col gap-4 sm:flex-row flex-wrap">
-                {[
-                  { label: "5 km", value: 5000 },
-                  { label: "10 km", value: 10000 },
-                  { label: "20 km", value: 20000 },
-                  { label: "30 km", value: 30000 },
-                ].map((option) => (
-                  <label
-                    key={option.value}
-                    className="inline-flex items-center"
-                  >
-                    <input
-                      type="radio"
-                      name="radius"
-                      value={option.value}
-                      checked={radius === option.value}
-                      onChange={(e) => setRadius(Number(e.target.value))}
-                      className="form-radio text-indigo-500"
-                    />
-                    <span className="ml-2">{option.label}</span>
-                  </label>
-                ))}
-              </div>
+            <div className="flex gap-3 flex-wrap ">
+              {[
+                { label: "5 km", value: 5000 },
+                { label: "10 km", value: 10000 },
+                { label: "20 km", value: 20000 },
+                { label: "30 km", value: 30000 },
+              ].map((option) => (
+                <label key={option.value} className="inline-flex items-center">
+                  <input
+                    type="radio"
+                    name="radius"
+                    value={option.value}
+                    checked={radius === option.value}
+                    onChange={(e) => setRadius(Number(e.target.value))}
+                    className="form-radio text-indigo-500"
+                  />
+                  <span className="ml-2">{option.label}</span>
+                </label>
+              ))}
             </div>
           </div>
-        </div>
-
-        {/* Bouton de recherche */}
-        <div className="mt-4 text-center">
-          <button
-            type="submit"
-            className="max-w-1/6 min-w-1/6 mx-auto my-2 p-2 bg-indigo-600 border-2 text-white py-2 rounded-lg hover:bg-white hover:text-indigo-600 hover:border-indigo-600 hover:border-2 transition-all duration-200 ease-in-out transform scale-100 active:scale-95 active:translate-y-0.5"
-            disabled={loading}
-          >
-            {loading ? "Recherche en cours..." : "Rechercher"}
-          </button>
+          {/* Bouton de recherche */}
+          <div className="mx-auto md:mx-0 ">
+            <button
+              type="submit"
+              className=" max-w-1/6 min-w-1/6 mx-auto p-2 bg-indigo-600 border-2 
+                 text-white py-2 rounded-lg hover:bg-white hover:text-indigo-600
+                  hover:border-indigo-600 hover:border-2 transition-all duration-200 ease-in-out transform scale-100 active:scale-95 active:translate-y-0.5"
+            >
+              Rechercher
+            </button>
+          </div>
         </div>
       </form>
     </>

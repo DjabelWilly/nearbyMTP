@@ -1,19 +1,5 @@
 import React from "react";
 
-/**
- * Results component displays a list of places and their details.
- * It takes in 6 props:
- * - places: an array of places to display
- * - isSelected: a boolean indicating whether a place is selected or not
- * - setIsSelected: a function to set the value of isSelected
- * - selectedPlace: the currently selected place
- * - setSelectedPlace: a function to set the value of selectedPlace
- * - message: a message to display if no place is found
- *
- * The component renders a list of places if isSelected is false, or the details of the selected place if isSelected is true.
- * Each place in the list is rendered as a card with its name, vicinity and rating.
- * The component also renders a message if no place is found.
- */
 const Results = ({
   places,
   isSelected,
@@ -21,16 +7,17 @@ const Results = ({
   selectedPlace,
   setSelectedPlace,
   message,
+  setHoveredMarkerIndex,
 }) => {
-  // Affiche le lieu choisi
+  // Fonction pour choisir un lieu
   const handleSelect = (place) => {
     setIsSelected(true);
     setSelectedPlace(place); // Mettre à jour le lieu selectionné
-    console.log(place.name);
+    console.log(place);
   };
 
   return (
-    <div className="flex flex-col mt-8 mx-auto">
+    <div className="flex flex-col mt-5">
       {/* Affiche un message si aucun lieu n'est trouvé */}
       {message && (
         <p className="text-gray-600 font-semibold text-center">{message}</p>
@@ -38,14 +25,20 @@ const Results = ({
 
       {/* Affiche la liste des lieux */}
       {!isSelected && places.length > 0 && (
-        <ul className="gap-4 w-full sm:w-3/4 mx-auto space-y-4">
+        <ul className=" w-full mx-auto space-y-4">
           {places.map((place, index) => (
             <li
               key={index}
-              className="bg-white rounded-lg shadow-lg  mx-auto p-2
-               hover:bg-blue-300 hover:cursor-pointer hover:scale-105 transition-transform duration-300 ease-in-out"
+              className="bg-white rounded-sm shadow-lg px-4 py-2
+               hover:bg-blue-200 hover:cursor-pointer hover:shadow-md transition duration-300 ease-in-out"
               onClick={() => {
-                handleSelect(place);
+                handleSelect(place); // Mettre à jour le lieu selectionné
+              }}
+              onMouseOver={() => {
+                setHoveredMarkerIndex(index); // Mettre à jour l'index du marqueur survolé
+              }}
+              onMouseOut={() => {
+                setHoveredMarkerIndex(null); //Reset l'index du marqueur survolé
               }}
             >
               <h3 className="text-xl font-semibold">{place.name}</h3>
@@ -71,8 +64,8 @@ const Results = ({
         </ul>
       )}
       {/* Affiche le details du lieu choisi */}
-      {isSelected && selectedPlace && (
-        <div className=" bg-white rounded-lg shadow-lg p-4 mb-4 w-full sm:w-3/4 mx-auto ">
+      {/* {isSelected && selectedPlace && (
+        <div className="bg-white rounded-sm shadow-lg w-full px-4 mx-auto py-2">
           <h3 className="text-xl font-semibold">{selectedPlace.name}</h3>
           <p className="text-gray-600">{selectedPlace.vicinity}</p>
           <p className="text-gray-600">
@@ -83,7 +76,7 @@ const Results = ({
               .replace("_", " ")}
           </p>
           <div className="flex justify-between mt-2">
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-600">
               Note: {selectedPlace.rating || "Pas de note"}
             </p>
             <p
@@ -99,7 +92,7 @@ const Results = ({
             </p>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

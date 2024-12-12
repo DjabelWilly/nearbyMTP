@@ -1,6 +1,26 @@
 import React from "react";
 
-const PlaceDetails = ({ place, apiKey, setIsSelected }) => {
+/**
+ * PlaceDetails component displays detailed information about a selected place.
+ * It shows the place's name, vicinity, opening hours, rating, phone number,
+ * website, and an image if available. It also provides a button to return to
+ * the list of places, resetting the selected state and hovered marker index.
+ *
+ * Props:
+ * - place: An object containing details of the selected place.
+ * - apiKey: The Google Maps API key used to fetch place photos.
+ * - setIsSelected: A function to update the selected state of a place.
+ * - setHoveredMarkerIndex: A function to reset the hovered marker index.
+ *
+ * Returns:
+ * A React component rendering detailed information about the selected place.
+ */
+const PlaceDetails = ({
+  place,
+  apiKey,
+  setIsSelected,
+  setHoveredMarkerIndex,
+}) => {
   const {
     name,
     vicinity,
@@ -16,9 +36,14 @@ const PlaceDetails = ({ place, apiKey, setIsSelected }) => {
     <div className="bg-white p-4 rounded-sm shadow-md flex flex-col">
       <div className="flex justify-between items-center">
         <h3 className="text-2xl font-semibold text-stone-800">{name}</h3>
+
+        {/* Bouton de retour vers la liste des lieux */}
         <button
           className="mt-2 bg-gray-800 text-sm text-white p-2 py-1 hover:bg-gray-600 rounded shadow-md"
-          onClick={() => setIsSelected(false)} // Retourner à la liste des lieux
+          onClick={() => {
+            setIsSelected(false); // Retourner à la liste des lieux
+            setHoveredMarkerIndex(null); // Reset l'index pour revenir à la couleur par default
+          }}
         >
           Retour
         </button>

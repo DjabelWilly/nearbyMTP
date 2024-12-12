@@ -1,4 +1,3 @@
-// components/MapComponent.js
 import React from "react";
 import {
   APIProvider,
@@ -37,7 +36,7 @@ const MapComponent = ({
     <APIProvider apiKey={apiKey}>
       <Map
         style={{ width: "100%", height: "70vh" }}
-        defaultCenter={{ lat: 43.6108, lng: 3.8767 }} // Coordonnées de Montpellier
+        defaultCenter={{ lat: 43.6108, lng: 3.8767 }} // Coordonnées de Montpellier par defaut
         mapId="DEMO_MAP_ID"
         defaultZoom={11}
         maxZoom={18}

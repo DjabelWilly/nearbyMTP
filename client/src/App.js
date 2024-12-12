@@ -6,6 +6,25 @@ import MapComponent from './components/MapComponent';
 import PlaceDetails from './components/PlaceDetails';
 
 
+/**
+ * App component is the main entry point of the application,
+ * managing the state and logic for displaying search results,
+ * selected place details, and the map. It fetches the Google Maps
+ * API key from the backend, handles the search results, and manages
+ * the selected place and hovered marker states.
+ *
+ * State:
+ * - places: Array of places returned from the search.
+ * - selectedPlace: The currently selected place for detailed view.
+ * - isSelected: Boolean indicating if a place is selected.
+ * - apiKey: Google Maps API key.
+ * - message: Error message or empty string if no error.
+ * - hoveredMarkerIndex: Index of the currently hovered marker.
+ *
+ * Returns:
+ * A React component rendering the search form, results, selected place details,
+ * and the map based on the current state.
+ */
 const App = () => {
     const [places, setPlaces] = useState([]); // Stocke les résultats de la recherche
     const [selectedPlace, setSelectedPlace] = useState(null); // Stocke le lieu choisi
@@ -36,6 +55,12 @@ const App = () => {
         fetchApiKey();
     }, []);
 
+    /**
+     * Handles the search results by updating the state with the new places.
+     * If the search returns no results, it sets an error message.
+     *
+     * @param {object[]} newPlaces The new places returned from the search.
+     */
     const handleSearch = (newPlaces) => {
         setPlaces(newPlaces);
         setIsSelected(false);
@@ -73,7 +98,6 @@ const App = () => {
                         places={places}
                         isSelected={isSelected}
                         setIsSelected={setIsSelected}
-                        selectedPlace={selectedPlace}
                         setSelectedPlace={setSelectedPlace}
                         message={message}
                         setHoveredMarkerIndex={setHoveredMarkerIndex}
@@ -82,7 +106,12 @@ const App = () => {
                     {/* Affichage des détails du lieu sélectionné */}
                     <div className="w-full flex flex-col ">
                         {isSelected && selectedPlace && (
-                            <PlaceDetails place={selectedPlace} apiKey={apiKey} setIsSelected={setIsSelected} />
+                            <PlaceDetails
+                                place={selectedPlace}
+                                apiKey={apiKey}
+                                setIsSelected={setIsSelected}
+                                setHoveredMarkerIndex={setHoveredMarkerIndex}
+                            />
                         )}
                     </div>
                 </div>

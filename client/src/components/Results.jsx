@@ -1,10 +1,26 @@
 import React from "react";
 
+/**
+ * Results component displays a list of places based on the search query.
+ * It handles the selection of a place and displays a message if no places are found.
+ *
+ * Props:
+ * - places: An array of places to display.
+ * - isSelected: A boolean indicating if a place is currently selected.
+ * - setIsSelected: A function to update the selected state.
+ * - setSelectedPlace: A function to update the selected place.
+ * - message: A string to display if no places are found.
+ * - setHoveredMarkerIndex: A function to update the index of the hovered marker.
+ *
+ * Returns:
+ * A component displaying a list of places with their name, vicinity, rating, and opening hours.
+ * If no places are found, it displays a message.
+ * If a place is selected, it displays a detail view of the selected place.
+ */
 const Results = ({
   places,
   isSelected,
   setIsSelected,
-  selectedPlace,
   setSelectedPlace,
   message,
   setHoveredMarkerIndex,
@@ -63,36 +79,6 @@ const Results = ({
           ))}
         </ul>
       )}
-      {/* Affiche le details du lieu choisi */}
-      {/* {isSelected && selectedPlace && (
-        <div className="bg-white rounded-sm shadow-lg w-full px-4 mx-auto py-2">
-          <h3 className="text-xl font-semibold">{selectedPlace.name}</h3>
-          <p className="text-gray-600">{selectedPlace.vicinity}</p>
-          <p className="text-gray-600">
-            {selectedPlace.types
-              .map((type) => type)
-              .slice(0, 2)
-              .join(", ")
-              .replace("_", " ")}
-          </p>
-          <div className="flex justify-between mt-2">
-            <p className="text-sm text-gray-600">
-              Note: {selectedPlace.rating || "Pas de note"}
-            </p>
-            <p
-              className={`text-sm text-gray-500 ${
-                selectedPlace.opening_hours?.open_now
-                  ? "text-green-500"
-                  : "text-red-500"
-              }`}
-            >
-              {selectedPlace.opening_hours?.open_now
-                ? "Ouvert actuellement"
-                : "Fermé actuellement"}
-            </p>
-          </div>
-        </div>
-      )} */}
     </div>
   );
 };

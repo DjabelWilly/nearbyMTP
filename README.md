@@ -38,7 +38,7 @@ Inside the api directory, create a .env file and add the following line with you
 
 5. Run the application:
 `npm start`
-The app should now be running on http://localhost:3000
+The app should now be running on `http://localhost:3000`
 
 
 ## Usage

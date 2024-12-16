@@ -45,6 +45,7 @@ const getApiKey = (req, res) => {
     }
 };
 
+// Retourne les détails d'un lieu spécifique (telephone, site web, etc.)
 const getPlaceDetails = async (req, res) => {
     const { place_id } = req.query;
 

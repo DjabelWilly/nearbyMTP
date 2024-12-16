@@ -1,21 +1,21 @@
 import React from "react";
+import axios from "axios";
 
 /**
- * Results component displays a list of places based on the search query.
- * It handles the selection of a place and displays a message if no places are found.
+ * Results component displays a list of places returned from the search.
+ * It provides a `handleSelect` function to update the selected place and
+ * fetch additional details from the backend. It also handles the hovered
+ * marker index to highlight the place on the map and reset it when the
+ * mouse leaves the list item.
  *
- * Props:
- * - places: An array of places to display.
- * - isSelected: A boolean indicating if a place is currently selected.
- * - setIsSelected: A function to update the selected state.
- * - setSelectedPlace: A function to update the selected place.
- * - message: A string to display if no places are found.
- * - setHoveredMarkerIndex: A function to update the index of the hovered marker.
- *
- * Returns:
- * A component displaying a list of places with their name, vicinity, rating, and opening hours.
- * If no places are found, it displays a message.
- * If a place is selected, it displays a detail view of the selected place.
+ * @param {object[]} places Array of places returned from the search.
+ * @param {boolean} isSelected Whether a place is selected or not.
+ * @param {function} setIsSelected Function to update `isSelected` state.
+ * @param {function} setSelectedPlace Function to update `selectedPlace` state.
+ * @param {string} message Error message if no places are found.
+ * @param {function} setHoveredMarkerIndex Function to update `hoveredMarkerIndex` state.
+ * @param {function} setDetails Function to update `details` state with the fetched place details.
+ * @returns {ReactElement} The Results component.
  */
 const Results = ({
   places,
@@ -24,12 +24,27 @@ const Results = ({
   setSelectedPlace,
   message,
   setHoveredMarkerIndex,
+  setDetails,
 }) => {
   // Fonction pour choisir un lieu
-  const handleSelect = (place) => {
+  const handleSelect = async (place) => {
     setIsSelected(true);
-    setSelectedPlace(place); // Mettre à jour le lieu selectionné
-    console.log(place);
+    setSelectedPlace(place);
+    console.log(place.place_id);
+
+    try {
+      // Requête vers le backend (mtpController)
+      const response = await axios.get(`http://localhost:5000/api/details`, {
+        params: { place_id: place.place_id },
+      });
+      console.log(response.data);
+      setDetails(response.data);
+    } catch (error) {
+      console.error(
+        "Erreur lors de la récupération des détails du lieu",
+        error
+      );
+    }
   };
 
   return (

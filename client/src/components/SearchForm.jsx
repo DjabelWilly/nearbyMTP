@@ -1,6 +1,26 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+/**
+ * SearchForm is a React component for searching for places based on an activity and radius.
+ *
+ * Props:
+ * - onResults: A callback function to pass the retrieved places to the parent component.
+ *
+ * State:
+ * - activity: The activity to search for.
+ * - radius: The radius to search within.
+ *
+ * Handles form submissions and makes an API call to fetch results based on the
+ * specified activity and radius. If the API call is successful, it passes the
+ * retrieved places to the parent component through the onResults callback. Displays
+ * alerts and logs errors in case of invalid inputs or request failure.
+ *
+ * Returns:
+ * A React component rendering a form with an input field for the activity and
+ * a set of radio buttons for the radius. The form is submitted when the user
+ * clicks the "Rechercher" button.
+ */
 const SearchForm = ({ onResults }) => {
   const [activity, setActivity] = useState(""); // Stocke l'activité recherchée
   const [radius, setRadius] = useState(5000); // Variable de rayon (par défaut : 5 km)

@@ -45,7 +45,23 @@ const getApiKey = (req, res) => {
     }
 };
 
+const getPlaceDetails = async (req, res) => {
+    const { place_id } = req.query;
+
+    try {
+        const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${place_id}&key=${API_KEY}`;
+
+        const response = await axios.get(url);
+        res.json(response.data.result);
+    } catch (error) {
+        console.error('Erreur lors de la récupération des détails du lieu', error);
+        res.status(500).json({ message: 'Erreur serveur' });
+    }
+};
 
 
 
-module.exports = { fetchPlaces, getApiKey };
+
+
+
+module.exports = { fetchPlaces, getApiKey, getPlaceDetails };

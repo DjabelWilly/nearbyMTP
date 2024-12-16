@@ -32,6 +32,7 @@ const App = () => {
     const [apiKey, setApiKey] = useState(null); // Stocke la clé API récupérée
     const [message, setMessage] = useState(''); // Stocke le message d'erreur si besoin 
     const [hoveredMarkerIndex, setHoveredMarkerIndex] = useState(null); // Indique quel marqueur est survolé
+    const [details, setDetails] = useState(null); // Stocke des détails complémentaires du lieu choisi (site web, tel, etc.)
 
     // Fonction pour obtenir la clé API (backend)
     const getApiKey = async () => {
@@ -55,6 +56,8 @@ const App = () => {
         fetchApiKey();
     }, []);
 
+
+
     /**
      * Handles the search results by updating the state with the new places.
      * If the search returns no results, it sets an error message.
@@ -68,6 +71,9 @@ const App = () => {
             ? setMessage('Oops 😓... aucun lieu ne correspond à votre recherche')
             : setMessage('');
     };
+
+
+
 
     // Si la clé API n'est pas encore chargée, affichez un écran de chargement
     if (!apiKey) {
@@ -99,8 +105,11 @@ const App = () => {
                         isSelected={isSelected}
                         setIsSelected={setIsSelected}
                         setSelectedPlace={setSelectedPlace}
+                        selectedPlace={selectedPlace}
                         message={message}
                         setHoveredMarkerIndex={setHoveredMarkerIndex}
+                        setDetails={setDetails}
+
                     />
 
                     {/* Affichage des détails du lieu sélectionné */}
@@ -111,6 +120,7 @@ const App = () => {
                                 apiKey={apiKey}
                                 setIsSelected={setIsSelected}
                                 setHoveredMarkerIndex={setHoveredMarkerIndex}
+                                details={details}
                             />
                         )}
                     </div>

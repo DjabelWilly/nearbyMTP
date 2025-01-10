@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link, Outlet, useLocation } from "react-router-dom";
 import Results from './components/Results';
 import SearchForm from './components/SearchForm';
 import MapComponent from './components/MapComponent';
 import PlaceDetails from './components/PlaceDetails';
+import getLinkClass from './Utils/getLinkClass';
+import { Home } from 'react-feather';
+import ImagePanel from './components/ImagePanel';
 
 
 /**
@@ -33,6 +37,7 @@ const App = () => {
     const [message, setMessage] = useState(''); // Stocke le message d'erreur si besoin 
     const [hoveredMarkerIndex, setHoveredMarkerIndex] = useState(null); // Indique quel marqueur est survolé
     const [details, setDetails] = useState(null); // Stocke des détails complémentaires du lieu choisi (site web, tel, etc.)
+    const location = useLocation(); // Detecte l'emplacement actuel de l'url dans le navigateur
 
     // Fonction pour obtenir la clé API (backend)
     const getApiKey = async () => {
@@ -56,8 +61,6 @@ const App = () => {
         fetchApiKey();
     }, []);
 
-
-
     /**
      * Handles the search results by updating the state with the new places.
      * If the search returns no results, it sets an error message.
@@ -67,39 +70,95 @@ const App = () => {
     const handleSearch = (newPlaces) => {
         setPlaces(newPlaces);
         setIsSelected(false);
+        location.pathname = ''; // simule le chemin de la page d'accueil pour reset la classe du bouton home 
         newPlaces.length === 0
             ? setMessage('Oops 😓... aucun lieu ne correspond à votre recherche')
             : setMessage('');
     };
-
-
-
 
     // Si la clé API n'est pas encore chargée, affichez un écran de chargement
     if (!apiKey) {
         return <div>Chargement de la carte...</div>;
     }
 
+
+    /**
+     * Handles the click on the link buttons (Home, top10Restaurants, ...) by resetting the state
+     * of the application to its initial state.
+     *
+     * Resets the places, selected place, is selected, hovered marker index,
+     * and details state properties.
+     */
+    const handleClickLink = () => {
+        setPlaces([]);
+        setSelectedPlace(null);
+        setIsSelected(false);
+        setHoveredMarkerIndex(null);
+        setDetails(null);
+    };
+
     return (
         <div className="min-h-screen py-0 px-0 bg-gray-200">
             <div className="py-1 w-full">
-                <h1 className="text-stone-800 text-center text-4xl font-bold pt-3 pb-2 mx-2">
+                <h1 className="text-green-400 text-center text-4xl font-bold pt-2 pb-2 mx-2">
                     Nearby Montpellier
                 </h1>
-                <h2 className="text-center text-xl font-semibold text-stone-500">
+                <h2 className="text-center text-xl font-semibold text-stone-600">
                     Sortir à Montpellier et ses alentours
                 </h2>
             </div>
 
+
+            {/* Boutons de navigation top activités */}
+            <div className="flex justify-center gap-4 mt-2 mb-4 ">
+                {/* Bouton de retour vers la page d'accueil */}
+                <Link to="/"
+                    className={getLinkClass(location, '/')}
+                    onClick={handleClickLink}
+                >
+                    <Home size={26} />
+
+                </Link>
+                {/* Bouton vers la page des 10 meilleurs restaurants */}
+                <Link to="/top-10-restaurants"
+                    className={getLinkClass(location, '/top-10-restaurants')}
+                    onClick={handleClickLink}
+                >
+                    Top 10 Restaurant
+                </Link>
+                {/* Bouton vers la page des coups de coeur */}
+                <Link to="/coups-de-coeur" className={getLinkClass(location, '/coups-de-coeur')}>
+                    Nos coups de ❤️
+                </Link>
+            </div>
+
+
             {/* Formulaire de recherche */}
-            {!isSelected &&
+            {/* Affichage du formulaire de recherche uniquement lorsque aucun lieu est choisi et l'url est sur la page d'accueil */}
+            {!isSelected && location.pathname === '/' &&
                 <SearchForm onResults={handleSearch} setIsSelected={setIsSelected} />
             }
 
+            {/* Affichage des images page d'accueil */}
+            {location.pathname === '/' &&
+                <ImagePanel />
+            }
+
+
+
+            {/* Affichage des pages avec react router */}
+            <Outlet
+                setSelectedPlace={setSelectedPlace}
+                setIsSelected={setIsSelected}
+            />
+
+
             {/* Liste du résultat de la recherche des lieux */}
             <div className="w-full mx-auto mt-6 flex flex-col sm:flex-row justify-center">
+                {/* Affichage de la liste des lieux si l'url n'est pas sur la page d'accueil */}
 
                 <div className="w-full sm:w-1/2 flex flex-col px-4">
+
                     <Results
                         places={places}
                         isSelected={isSelected}
@@ -109,7 +168,6 @@ const App = () => {
                         message={message}
                         setHoveredMarkerIndex={setHoveredMarkerIndex}
                         setDetails={setDetails}
-
                     />
 
                     {/* Affichage des détails du lieu sélectionné */}
@@ -128,7 +186,7 @@ const App = () => {
 
                 {/* Affichage de la map google */}
                 {places.length > 0 && (
-                    <div className="sticky top-20 sm:w-2/3 w-full h-[70vh] mt-5 px-4 sm:px-2">
+                    <div className="sticky top-8 sm:w-2/3 w-full h-[70vh] mt-5 px-4 sm:px-2">
                         <MapComponent
                             apiKey={apiKey}
                             places={places}

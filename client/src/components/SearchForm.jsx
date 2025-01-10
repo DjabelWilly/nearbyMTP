@@ -84,7 +84,7 @@ const SearchForm = ({ onResults }) => {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <div className="bg-white rounded-lg shadow-md md:w-4/5 flex flex-col md:flex-row justify-around md:items-center p-2 pb-5 mt-4 mb-8 mx-4 md:mx-auto space-y-4">
+        <div className="bg-white rounded-lg shadow-md md:w-4/5 flex flex-col md:flex-row justify-around md:items-center p-2 pb-5 mx-4 md:mx-auto space-y-4">
           {/* Champ de recherche */}
           <div className="w-full md:w-1/3">
             <input

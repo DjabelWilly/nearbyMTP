@@ -21,7 +21,6 @@ import React from "react";
  * Returns:
  * A React element displaying the detailed information about the place.
  */
-
 const PlaceDetails = ({
   place,
   apiKey,

@@ -110,26 +110,37 @@ const App = () => {
 
 
             {/* Boutons de navigation top activités */}
-            <div className="flex justify-center gap-4 mt-2 mb-4 ">
+            <div className="flex flex-col md:flex-row justify-center gap-4 mt-2 mb-4  ">
                 {/* Bouton de retour vers la page d'accueil */}
-                <Link to="/"
-                    className={getLinkClass(location, '/')}
-                    onClick={handleClickLink}
-                >
-                    <Home size={26} />
-
-                </Link>
-                {/* Bouton vers la page des 10 meilleurs restaurants */}
-                <Link to="/top-10-restaurants"
-                    className={getLinkClass(location, '/top-10-restaurants')}
-                    onClick={handleClickLink}
-                >
-                    Top 10 Restaurant
-                </Link>
-                {/* Bouton vers la page des coups de coeur */}
-                <Link to="/coups-de-coeur" className={getLinkClass(location, '/coups-de-coeur')}>
-                    Nos coups de ❤️
-                </Link>
+                <div className="flex justify-center items-center">
+                    <Link to="/"
+                        className={getLinkClass(location, '/')}
+                        onClick={handleClickLink}
+                    >
+                        <Home size={24} />
+                    </Link>
+                </div>
+                {/* Lien vers 10 meilleurs restaurants */}
+                <div className="flex justify-center items-center">
+                    <Link to="/top-10-restaurants"
+                        className={getLinkClass(location, '/top-10-restaurants')}
+                        onClick={handleClickLink}
+                    >
+                        Top 10 Restaurant
+                    </Link>
+                </div>
+                {/* Lien vers Top escapades */}
+                <div className="flex justify-center items-center">
+                    <Link to="/escapades" className={getLinkClass(location, '/escapades')}>
+                        Escapades nature
+                    </Link>
+                </div>
+                {/* Lien vers les coups de coeur */}
+                <div className="flex justify-center items-center">
+                    <Link to="/coups-de-coeur" className={getLinkClass(location, '/coups-de-coeur')}>
+                        Nos coups de ❤️
+                    </Link>
+                </div>
             </div>
 
 
@@ -146,7 +157,7 @@ const App = () => {
 
 
 
-            {/* Affichage des pages avec react router */}
+            {/* Affichage des pages enfants avec react router */}
             <Outlet
                 setSelectedPlace={setSelectedPlace}
                 setIsSelected={setIsSelected}

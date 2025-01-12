@@ -8,12 +8,12 @@ const ImagePanel = () => {
   const images = [
     { src: image1, alt: "Restaurants", text: "Restaurants" },
     { src: image2, alt: "Musées", text: "Musées" },
-    { src: image3, alt: "Vignobles", text: "Vignobles du Pic St Loup" },
+    { src: image3, alt: "Vignobles", text: "L'arrière pays" },
     { src: image4, alt: "Aigues-Mortes", text: "Aigues-Mortes" },
   ];
 
   return (
-    <div className="container mx-auto px-4 mt-4 flex justify-center items-center align-middle">
+    <div className="container w-3/4 mx-auto mt-12 flex justify-center items-center align-middle">
       <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {images.map((image, index) => (
           <div
@@ -25,7 +25,10 @@ const ImagePanel = () => {
               alt={image.alt}
               className="w-full h-full object-cover hover:opacity-75 transition-opacity duration-300 ease-in-out"
             />
-            <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white opacity-0 hover:opacity-100 transition-opacity duration-300">
+            <div
+              className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center
+                       text-white opacity-0 hover:opacity-100 transition-opacity duration-300"
+            >
               <p className="text-lg font-semibold">{image.text}</p>
             </div>
           </div>

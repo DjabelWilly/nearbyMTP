@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Top10Restaurants from './Pages/Top10Restaurants';
 import CoupsDeCoeur from './/Pages/CoupsDeCoeur';
 import ErrorPage from './Pages/Error';
+import Escapades from './Pages/Escapades';
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: "/coups-de-coeur",
         element: <CoupsDeCoeur />,
+      },
+      {
+        path: "/escapades",
+        element: <Escapades />,
       }
     ]
   },

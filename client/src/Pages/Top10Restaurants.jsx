@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { API_URL } from "../config/constants";
 
 const Top10Restaurants = () => {
   const [restaurants, setRestaurants] = useState([]);
@@ -13,7 +14,7 @@ const Top10Restaurants = () => {
    */
   const displayRestaurants = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/search`, {
+      const response = await axios.get(`${API_URL}/api/search`, {
         params: { activity: "restaurant", radius: 5000 },
       });
       setRestaurants(response.data.places);

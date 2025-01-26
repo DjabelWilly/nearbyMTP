@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { API_URL } from "../config/constants";
 
 /**
  * Results component displays a list of places returned from the search.
@@ -34,7 +35,7 @@ const Results = ({
 
     try {
       // Requête vers le backend (mtpController)
-      const response = await axios.get(`http://localhost:5000/api/details`, {
+      const response = await axios.get(`${API_URL}/api/details`, {
         params: { place_id: place.place_id },
       });
       console.log(response.data);

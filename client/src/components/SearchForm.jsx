@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { API_URL } from "../config/constants";
 
 /**
  * SearchForm is a React component for searching for places based on an activity and radius.
@@ -67,7 +68,7 @@ const SearchForm = ({ onResults }) => {
     console.log("Envoi de requête avec :", { activity, radius });
 
     try {
-      const response = await axios.get(`http://localhost:5000/api/search`, {
+      const response = await axios.get(`${API_URL}/api/search`, {
         params: { activity, radius },
       });
       console.log(response.data);

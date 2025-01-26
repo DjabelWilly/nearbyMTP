@@ -1,7 +1,7 @@
 const Escapades = () => {
   return (
     <div className="flex justify-center items-center mt-12 text-xl">
-      <h1>Escapades</h1>
+      <h1>⚠️ en cours de construction ⚠️</h1>
     </div>
   );
 };

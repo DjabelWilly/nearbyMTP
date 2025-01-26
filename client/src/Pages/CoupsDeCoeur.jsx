@@ -1,7 +1,7 @@
 const CoupsDeCoeur = () => {
   return (
     <div className="flex justify-center items-center mt-12 text-xl">
-      <h1>Coups de coeur</h1>
+      <h1> ⚠️ en cours de construction ⚠️</h1>
     </div>
   );
 };

@@ -3,7 +3,7 @@ const cors = require('cors');
 const mtpRoutes = require('./routes/mtpRoutes');
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 // Configuration CORS
 const allowedOrigins = [

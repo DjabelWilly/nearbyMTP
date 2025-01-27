@@ -8,7 +8,7 @@ import PlaceDetails from './components/PlaceDetails';
 import getLinkClass from './Utils/getLinkClass';
 import { Home } from 'react-feather';
 import ImagePanel from './components/ImagePanel';
-
+import { API_URL } from './config/constants';
 
 /**
  * App component is the main entry point of the application,
@@ -42,7 +42,7 @@ const App = () => {
     // Fonction pour obtenir la clé API (backend)
     const getApiKey = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/key');
+            const response = await axios.get(`${API_URL}/api/key`);;
             const apiKey = response.data.apiKey;
             return apiKey;
         } catch (error) {

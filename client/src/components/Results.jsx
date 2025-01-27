@@ -34,7 +34,7 @@ const Results = ({
     console.log(place.place_id);
 
     try {
-      // Requête vers le backend (mtpController)
+      // Requête vers l'api
       const response = await axios.get(`${API_URL}/api/details`, {
         params: { place_id: place.place_id },
       });

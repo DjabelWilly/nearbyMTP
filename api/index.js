@@ -2,13 +2,14 @@ const express = require('express');
 const cors = require('cors');
 const mtpRoutes = require('./routes/mtpRoutes');
 
+const PORT = process.env.PORT;
+
 const app = express();
-const PORT = process.env.PORT || 5000;
 
 // Configuration CORS
 const allowedOrigins = [
-    'http://localhost:3000',            // Développement local
-    'https://nearby-mtp.vercel.app'     // Production
+    'http://localhost:3000',            // url frontend local
+    'https://nearby-mtp.vercel.app'     // url front de Production
 ];
 
 app.use(cors({

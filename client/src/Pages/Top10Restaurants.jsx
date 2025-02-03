@@ -29,19 +29,19 @@ const Top10Restaurants = () => {
 
   return (
     <>
-      <div className="container mx-auto px-4 mt-12">
-        <h1 className="text-2xl font-semibold text-center">
+      <div className="display flex flex-col mx-auto px-4 mt-8">
+        <h1 className="text-2xl font-semibold text-center mb-4">
           Notre top 10 des meilleurs restaurants à Montpellier
         </h1>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-6 mt-6 mx-24">
+        <div className="display grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center gap-4">
           {restaurants
-            .filter((restaurant) => restaurant.rating >= 4.5)
-            .slice(0, 10)
+            .filter((restaurant) => restaurant.rating >= 4.5) // filtre les restaurants avec une note >= 4.5
+            .slice(0, 10) // affiche seulement les 10 premiers
             .map((restaurant) => (
               <div
                 key={restaurant.place_id}
-                className="bg-white rounded-lg shadow-md p-4 cursor-pointer"
+                className="bg-white rounded-lg shadow-md p-4 cursor-pointer hover:-translate-y-2 transition-all duration-300 hover:opacity-60"
                 onClick={() => {
                   console.log(restaurant);
                 }}
